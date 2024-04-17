@@ -39,8 +39,10 @@
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
                     <input type="password" id="passwordAccedi" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
                 </div>
+
+                
 
                 <!-- Paragrafo aggiunto al fondo del div -->
                 <div class="container mt-auto" style="width: 80%;">
@@ -68,7 +70,7 @@
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
                     <input type="password" id="passwordAccedi" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" onclick="Login()">Accedi </button>
                 </div>
 
                 <!-- Paragrafo aggiunto al fondo del div -->
@@ -83,10 +85,27 @@
         </div>
     </div>
 
+
+<!--hdfgdfjkvhghdfvhfbvhfbvbfjbvgndbmjfjhbchfb--><p>Prova Prova</p>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+
+function Login() {
+    console.log("login()")
+    const username = document.getElementById('usernameAccedi').value;
+    const password = document.getElementById('passwordAccedi').value;
+    
+    // Salva le credenziali in sessione
+    sessionStorage.setItem('username', username);
+    sessionStorage.setItem('password', password);
+    
+    header("location: login.php");
+}
+
+
         const divLoginAdmin = document.getElementById("divLoginAdmin");
         const divLoginUtente = document.getElementById("divLoginUtente");
 
