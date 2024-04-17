@@ -39,8 +39,10 @@
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
                     <input type="password" id="passwordAccedi" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
                 </div>
+
+                
 
                 <!-- Paragrafo aggiunto al fondo del div -->
                 <div class="container mt-auto" style="width: 80%;">
@@ -90,6 +92,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+
+function Login() {
+    const username = document.getElementById('usernameAccedi').value;
+    const password = document.getElementById('passwordAccedi').value;
+    
+    // Salva le credenziali in sessione
+    sessionStorage.setItem('username', username);
+    sessionStorage.setItem('password', password);
+    
+
+}
+
+
         const divLoginAdmin = document.getElementById("divLoginAdmin");
         const divLoginUtente = document.getElementById("divLoginUtente");
 
