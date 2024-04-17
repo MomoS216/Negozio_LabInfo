@@ -33,13 +33,13 @@
                 <div class="container" style="width: 80%;">
                     <label for="usernameAccedi">Username <span style="color:red" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="text" class="form-control" placeholder="" id="usernameAccedi">
+                    <input type="text" class="form-control" placeholder="" id="usernameAccediLogin">
 
                     <label for="passwordAccedi" class="mt-3">Password <span style="color:red" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="password" id="passwordAccedi" class="form-control">
+                    <input type="password" id="passwordAccediLogin" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" onclick="Login()" >Accedi </button>
                 </div>
 
                 
@@ -70,7 +70,7 @@
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
                     <input type="password" id="passwordAccedi" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" onclick="Login()">Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Accedi </button>
                 </div>
 
                 <!-- Paragrafo aggiunto al fondo del div -->
@@ -95,14 +95,12 @@
 
 function Login() {
     console.log("login()")
-    const username = document.getElementById('usernameAccedi').value;
-    const password = document.getElementById('passwordAccedi').value;
+    const username = document.getElementById('usernameAccediLogin').value;
+    const password = document.getElementById('passwordAccediLogin').value;
     
-    // Salva le credenziali in sessione
-    sessionStorage.setItem('username', username);
-    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('datiLogin', {"username": username, "password": password});
     
-    header("location: login.php");
+    window.location.href = '../login.php';
 }
 
 
