@@ -70,7 +70,7 @@
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
                     <input type="password" id="passwordAccedi" class="form-control">
 
-                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Accedi </button>
+                    <button type="button" class="btn btn-primary  btn-block mt-3" style="width: 100%;" onclick="Login()">Accedi </button>
                 </div>
 
                 <!-- Paragrafo aggiunto al fondo del div -->
@@ -94,6 +94,7 @@
     <script>
 
 function Login() {
+    console.log("login()")
     const username = document.getElementById('usernameAccedi').value;
     const password = document.getElementById('passwordAccedi').value;
     
@@ -101,7 +102,7 @@ function Login() {
     sessionStorage.setItem('username', username);
     sessionStorage.setItem('password', password);
     
-
+    header("location: login.php");
 }
 
 
