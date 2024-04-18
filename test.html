@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <div id="test">
+        <script>
+            const test = document.getElementById("test");
+            const recupera = async () =>{
+                let resp = await fetch("./login.php");
+                resp = await resp.json();
+                test.innerText = resp.result;
+            }
+            recupera();
+        </script>
+    </div>
+</body>
+</html>

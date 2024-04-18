@@ -89,8 +89,6 @@
     </div>
 
 
-<!--hdfgdfjkvhghdfvhfbvhfbvbfjbvgndbmjfjhbchfb--><p>Prova Prova</p>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -98,10 +96,10 @@
 
 function Login() {
     console.log("login()")
-    const username = document.getElementById('usernameAccediLogin').value;
-    const password = document.getElementById('passwordAccediLogin').value;
+    const username = document.getElementById('usernameAccediLogin');
+    const password = document.getElementById('passwordAccediLogin');
     
-    sessionStorage.setItem('datiLogin', {"username": username, "password": password});
+    sessionStorage.setItem('datiLogin', {"username": username.value, "password": password.value});
     
     window.location.href = '../login.php';
 }
@@ -111,7 +109,7 @@ function Registrazione() {
     const username = document.getElementById('usernameAccedi').value;
     const password = document.getElementById('passwordAccedi').value;
     
-    sessionStorage.setItem('datiLogin', {"username": username, "password": password});
+    sessionStorage.setItem('datiRegistrazione', {"username": username, "password": password});
     
     window.location.href = '../registrazione.php';
 }
