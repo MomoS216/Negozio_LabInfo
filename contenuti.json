@@ -1,0 +1,117 @@
+{
+    "divani":  [
+        {
+            "nome": "Divano grigio 3 posti",
+            "descizione" : "Divano grigio comodo per tre persone, ottimo per ambienti minimal",
+            "prezzo": "800",
+            "stock": "10",
+            "percorso": "/public/images/divani/divano1.jpg"
+        },
+
+        {
+            "nome": "Divano ferro di cavallo",
+            "descizione" : "Ottimo divano per grandi ambienti e per ricevere tanti amici a casa e stare comodi tutti quanti",
+            "prezzo": "1500",
+            "stock": "5",
+            "percorso": "/public/images/divani/divano2.jpg"
+        },
+        {
+            "nome": "Divano 2 posti ocra",
+            "descizione" : "Comodo divano a due posti, essenziale per appartamenti piccoli ma accoglienti",
+            "prezzo": "500",
+            "stock": "15",
+            "percorso": "/public/images/divani/divano3.jpg"
+        },
+        {
+            "nome": "Divano letto",
+            "descizione" : "Perfetta alternativa al tipico letto, comodo da aprire e da chiudere grazie al nuovo meccanismo ottimizzato",
+            "prezzo": "650",
+            "stock": "7",
+            "percorso": "/public/images/divani/divano4.jpg"
+        },
+        {
+            "nome": "Divano con penisola circolare",
+            "descizione" : "Comodissimo divano con penisola circolare perfetta per godersi un film in serata",
+            "prezzo": "900",
+            "stock": "6",
+            "percorso": "/public/images/divani/divano5.jpg"
+        }
+    ],
+
+    "letti": [
+        {
+            "nome": "Letto con testata imbottita",
+            "descizione" : "Ottima struttura letto, con testata imbottita e comoda al contatto, perfetta per camere da letto sofisticate",
+            "prezzo": "850",
+            "stock": "10",
+            "percorso": "/public/images/letti/letto1.avif"
+        },
+        {
+            "nome": "Letto con cassettiera",
+            "descizione" : "Comodo letto con sotto due cassetti per tenere la biancheria del letto",
+            "prezzo": "380",
+            "stock": "10",
+            "percorso": "/public/images/letti/letto2.avif"
+        },
+        {
+            "nome": "Letto singolo per ragazzi",
+            "descizione" : "Perfetto letto singolo per la cameretta di un ragazzo",
+            "prezzo": "169",
+            "stock": "5",
+            "percorso": "/public/images/letti/letto3.avif"
+        },
+        {
+            "nome": "Letto a castello bianco",
+            "descizione" : "Ottimo letto a castello per due bambini, utile in camerette con spazio limitato",
+            "prezzo": "270",
+            "stock": "4",
+            "percorso": "/public/images/letti/letto4.avif"
+        },
+        {
+            "nome": "Letto a castello con scrivania",
+            "descizione" : "Letto a castello con scrivania, essenziale per un ragazzo",
+            "prezzo": "550",
+            "stock": "4",
+            "percorso": "/public/images/letti/letto5.avif"
+        }
+
+    ],
+
+    "scrivanie": [
+        {
+            "nome": "Scrivania con mensole e lavagnetta",
+            "descizione" : "Scrivania bianca con lavagnetta magnetica per segnare tutti i propri impegni, a lato delle piccole mensole per organizzare i propri oggetti",
+            "prezzo": "135",
+            "stock": "5",
+            "percorso": "/public/images/scrivanie/scrivania1.jpg"
+        },
+        {
+            "nome": "Scrivania con doppia cassettiera",
+            "descizione" : "Scrivania lunga 140cm con doppia cassettiera ai lati.",
+            "prezzo": "200",
+            "stock": "10",
+            "percorso": "/public/images/scrivanie/scrivania2.avif"
+        },
+        {
+            "nome": "Scrivania angolare bianca",
+            "descizione" : "Scrivania angolare con mensole e passacavi ",
+            "prezzo": "199",
+            "stock": "7",
+            "percorso": "/public/images/scrivanie/scrivania3.avif"
+        },
+        {
+            "nome": "Scrivania da gaming nera",
+            "descizione" : "ottima scrivania per una postazione con doppio monitor e ampio spazio dedicato alle periferiche",
+            "prezzo": "300",
+            "stock": "5",
+            "percorso": "/public/images/scrivanie/scrivania4.avif"
+        },
+        {
+            "nome": "Scrivania regolabile in altezza",
+            "descizione" : "Scrivania regolabile in altezza con controlli facilmente accessibile, altezza massima 1,3m",
+            "prezzo": "350",
+            "stock": "6",
+            "percorso": "/public/images/scrivanie/scrivania5.avif"
+        }
+    ]
+}
