@@ -23,7 +23,6 @@ function registerUtente($username, $password, $ruolo, $stato)
 function loginUtente($username, $password)
 {
     global $connessione;
-
     try {
         $username = $connessione->quote($username);
         $sql = "SELECT * FROM Utente WHERE Username = $username";
