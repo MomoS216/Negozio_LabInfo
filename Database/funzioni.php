@@ -1,10 +1,10 @@
 <?php
 
-require_once('connessione.php');
 
 //UTENTI
 function registerUtente($username, $password, $ruolo, $stato)
 {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -22,6 +22,7 @@ function registerUtente($username, $password, $ruolo, $stato)
 
 function loginUtente($username, $password)
 {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -43,6 +44,7 @@ function loginUtente($username, $password)
 }
 
 function selezionaUtenti() {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -64,6 +66,7 @@ function selezionaUtenti() {
 //PRODOTTI
 function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
 {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -76,6 +79,7 @@ function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
 }
 
 function selezionaProdotti() {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -96,6 +100,7 @@ function selezionaProdotti() {
 //PRODOTTI_ORDINATI
 function selezionaProdottiOrdinati()
 {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
@@ -116,6 +121,7 @@ function selezionaProdottiOrdinati()
 //ORDINI
 function inserisciOrdine($id_utente, $data_ordine, $stato)
 {
+    require("../../Database/connessione.php");
     global $connessione;
 
     try {
