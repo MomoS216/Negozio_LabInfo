@@ -60,7 +60,7 @@
             <div class="bg-white" style="width: 500px; height: 600px; border-radius: 15px;">
                 <h2 class="text-center mt-3"><strong>Crea il tuo account</strong></h2>
                 <br><br><br>
-                <form method="POST" action="../php/login.php">
+                <form method="POST" action="../php/registrazione.php">
                     <div class="container" style="width: 80%;">
                     <div class="row">
                         <div class="col">
@@ -100,13 +100,13 @@
                 <br><br><br>
                 <form method="POST" action="../php/registrazione.php">
                 <div class="container" style="width: 80%;">
-                        <label for="usernameRegistrazione">Username <span style="color:red;" data-bs-toggle="tooltip"
+                        <label for="usernameAdmin">Username <span style="color:red;" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="text" class="form-control" placeholder="" name="usernameRegistrazione" id="usernameRegistrazione" required>
+                    <input type="text" class="form-control" placeholder="" name="usernameAdmin" id="usernameAdmin" required>
 
-                    <label for="passwordRegistrazione" class="mt-3">Password <span style="color:red" data-bs-toggle="tooltip"
+                    <label for="passwordAdmin" class="mt-3">Password <span style="color:red" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="password" id="passwordRegistrazione" name="passwordRegistrazione" class="form-control" required>
+                    <input type="password" id="passwordAdmin" name="passwordAdmin" class="form-control" required>
 
                     <button type="submit" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
                     </form>

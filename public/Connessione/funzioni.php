@@ -3,17 +3,17 @@
 require_once('connessione.php');
 
 //UTENTI
-function registerUtente($username, $password, $ruolo, $stato,$nome)
+function registerUtente($username, $password, $ruolo, $stato,$nome,$cognome)
 {
     global $conn;
 
     try {
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql_register = "INSERT INTO Utente (Username, Password, Ruolo, Stato,Nome) VALUES (?, ?, ?, ?, ?)";
+        $sql_register = "INSERT INTO Utente (Username, Password, Ruolo, Stato,Nome,Cognome) VALUES (?, ?, ?, ?, ?,?)";
 
         $stmt = $conn->prepare($sql_register);
-        $stmt->execute([$username, $hashed_password, $ruolo, $stato, $nome]);
+        $stmt->execute([$username, $hashed_password, $ruolo, $stato, $nome,$cognome]);
 
         return true;
     } catch (PDOException $e) {

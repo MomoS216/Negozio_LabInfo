@@ -1,5 +1,6 @@
 <?php
-require_once('funzioni.php');
+require('../Connessione/connessione.php');
+require('../Connessione/funzioni.php');
 // Verifica se il metodo di richiesta è POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Controlla se i campi usernameAccedi e passwordAccedi sono stati inviati
@@ -10,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
    if(loginUtente($username,$password)){
-    header('Location: public/html/index.php');
+    header('Location: public/html/utente.html');
    }else{
     echo "login fallita";
    }
