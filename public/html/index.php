@@ -25,7 +25,10 @@
 
 <body style="background-color: cadetblue;" class="mostra">
 
+
+
 <div class="justify-content-center align-items-center text-center mt-4 ">
+<img src="../images/logoCasaDesign.png" alt="alt" style="width: 300px; border-radius:15px">
     <button class="btn btn-success " style="margin-left:10px; margin-right:10px" id="goToAccediUtente" >Accedi</button>
     <button class="btn btn-success " style="margin-left:10px; margin-right:10px" id="goToAccediRegistrati">Registrati</button>
     <button class="btn btn-success " style="margin-left:10px; margin-right:10px" id="goToAccediAdmin">Amministrazione</button>
@@ -62,7 +65,7 @@
                 <br><br><br>
                 <form method="POST" action="../php/registrazione.php">
                     <div class="container" style="width: 80%;">
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col">
                         <label for="nomeRegistrati">Nome <span style="color:red" data-bs-toggle="tooltip"
                                 data-bs-html="true" title="Campo obbligatorio">*</span></label>
