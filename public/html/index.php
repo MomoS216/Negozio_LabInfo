@@ -34,11 +34,11 @@
                     <div class="container" style="width: 80%;">
                         <label for="usernameAccedi">Username <span style="color:red" data-bs-toggle="tooltip"
                                 data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                        <input type="text" class="form-control" placeholder="" name="usernameAccedi" id="usernameAccediLogin">
+                        <input type="text" class="form-control" placeholder="" name="usernameAccedi" id="usernameAccediLogin" required>
     
                         <label for="passwordAccedi" class="mt-3">Password <span style="color:red" data-bs-toggle="tooltip"
                                 data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                        <input type="password" id="passwordAccediLogin"  name="passwordAccedi" class="form-control">
+                        <input type="password" id="passwordAccediLogin"  name="passwordAccedi" class="form-control" required>
     
                         <button type="submit" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
                     </div>
@@ -68,11 +68,11 @@
                 <div class="container" style="width: 80%;">
                         <label for="usernameRegistrazione">Username <span style="color:red;" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="text" class="form-control" placeholder="" name="usernameRegistrazione" id="usernameRegistrazione">
+                    <input type="text" class="form-control" placeholder="" name="usernameRegistrazione" id="usernameRegistrazione" required>
 
                     <label for="passwordRegistrazione" class="mt-3">Password <span style="color:red" data-bs-toggle="tooltip"
                             data-bs-html="true" title="Campo obbligatorio">*</span></label>
-                    <input type="password" id="passwordRegistrazione" name="passwordRegistrazione" class="form-control">
+                    <input type="password" id="passwordRegistrazione" name="passwordRegistrazione" class="form-control" required>
 
                     <button type="submit" class="btn btn-primary  btn-block mt-3" style="width: 100%;" >Accedi </button>
                     </form>
@@ -96,6 +96,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+
 
 
 
@@ -125,16 +126,40 @@
         }
 
 
-    </script>
 
-    <script>
-        /*
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
-        */
+        
     </script>
+
+
+<?php
+// Verifica se il metodo di richiesta è POST per il form di accesso utente
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Controlla se il form è per l'accesso utente o per la registrazione
+    if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
+        // Form di accesso utente
+        echo '<div class="alert alert-success" role="alert">
+            Hai effettuato l\'accesso con successo!
+        </div>';
+    } elseif (isset($_POST["usernameRegistrazione"]) && isset($_POST["passwordRegistrazione"])) {
+        // Form di registrazione
+        echo '<div class="alert alert-info" role="alert">
+            La registrazione è stata effettuata con successo!
+        </div>';
+    } else {
+        // Nessun form è stato inviato
+        echo '<div class="alert alert-warning" role="alert">
+            Nessuna azione eseguita.
+        </div>';
+    }
+}
+?>
+
+
+
 
 </body>
 
