@@ -1,4 +1,5 @@
 <?php
+require_once('funzioni.php');
 // Verifica se il metodo di richiesta è POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Controlla se i campi usernameAccedi e passwordAccedi sono stati inviati
@@ -7,10 +8,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST["usernameAccedi"];
         $password = $_POST["passwordAccedi"];
 
-        // Ora puoi fare ciò che vuoi con i valori dei campi
-        // Ad esempio, stampali a schermo
-        echo "Username: " . $username . "<br>";
-        echo "Password: " . $password . "<br>";
+
+   if(loginUtente($username,$password)){
+    header('Location: public/html/index.php');
+   }else{
+    echo "login fallita";
+   }
+
+       
     } else {
         // Se uno dei campi non è stato inviato, gestisci l'errore di conseguenza
         echo "Errore: Uno o più campi mancanti.";
