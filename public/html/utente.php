@@ -27,10 +27,10 @@
     <nav class="navbar navbar-dark bg-dark fixed-top mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                Exclusive Home Design (Amministrazione)
+                Exclusive Home Design
             </a>
 
-            <button class="btn btn-success" style="margin-left: 55%;">
+            <button class="btn btn-success" style="margin-left: 65%;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                 </svg> Carrello
@@ -70,7 +70,7 @@
                     <a class="nav-link" href="" style="color:white">Scrivanie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color:white">Sedie</a>
+                    <a class="nav-link" href="#" style="color:white">Mensole</a>
                 </li>
 
                 <li>
@@ -88,114 +88,98 @@
     <!--FINE OFFCANVAS-->
 
     <div class="container">
-
-        <h1 style="margin-top:100px" class="mb-3">Gestione Magazzino</h1>
+        <h1 style="margin-top:100px" class="mb-3">Categorie</h1>
         <div class="row justify-content-center text-center">
             <div class="col">
-                <button type="button" class="btn btn-success" style="width: 300px;" id="addArticolo" data-toggle="modal" data-target="#modalAddArticolo">
-                    Aggiungi Articolo
-                </button>
+                <button class="btn btn-success" style="width: 300px;">Divani</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" style="width: 300px;">Letti</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" style="width: 300px;">Scrivanie</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" style="width: 300px;">Mensole</button>
             </div>
         </div>
-
         <hr>
-        <h1>Articoli</h1>
 
+        <h1 class="mt-5">Articoli in sconto</h1>
+<div class="container">
+    <div class="row justify-content-center">
         <?php
-       
         require("../Connessione/connessione.php");
         require_once("../Connessione/funzioni.php");
         $prodotti = selezionaProdotti();
 
-       
         if (count($prodotti) > 0) {
-            
-            echo "<table class='table table-dark table-striped ' id='tableArticoli'>";
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>ID</th>";
-            echo "<th>Nome</th>";
-            echo "<th>Descrizione</th>";
-            echo "<th>Azioni</th>"; 
-           
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-
-           
             foreach ($prodotti as $prodotto) {
-                echo "<tr>";
-                echo "<td>" . $prodotto['ID_Prodotto'] . "</td>";
-                echo "<td>" . $prodotto['Nome'] . "</td>";
-                echo "<td>" . $prodotto['Descrizione'] . "</td>";
-                echo "<td class='col-2'>"; 
-               
-                echo "<button class='btn' id='cancella" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/bin.png' alt='cancella' width='30px'></button>";
-                echo "<button class='btn' id='modifica" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/modify2.png' alt='modifica' width='30px'></button>";
-                echo "<button class='btn' id='restock" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/restock.png' alt='modifica' width='30px'></button>";
-                echo "</td>"; 
-                echo "</tr>";
+                echo "<div class='col mt-2 mb-2'>";
+                echo "<div class='card h-100' style='width: 18rem;'>"; // Imposta l'altezza massima per la card
+                echo "<img src='" . $prodotto['Immagine'] . "' class='card-img-top' alt=''>";
+                echo "<div class='card-body'>";
+                echo "<h5 class='card-title'>" . $prodotto['Nome'] . "</h5>";
+                echo "<div style='height: 100px; overflow-y: auto;'>"; // Imposta l'altezza massima per il testo della descrizione
+                echo "<p class='card-text'>" . $prodotto['Descrizione'] . "</p>";
+                echo "</div>"; // Fine del div per il testo della descrizione
+                echo "<h4>" . $prodotto['Prezzo'] . " €</h4>";
+                echo "<div class='d-flex justify-content-between align-items-center mt-auto'>";
+                echo "<div>";
+                echo "<a href='#' class='btn btn-primary'>";
+                echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-cart-plus' viewBox='0 0 16 16'>
+                <path d='M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z' />
+                <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
+            </svg>";
+                echo "</a>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>"; // Fine del card-body
+                echo "</div>"; // Fine della card
+                echo "</div>"; // Fine della col
             }
-
-           
-            echo "</tbody>";
-            echo "</table>";
-        } else {
-            
-            echo "<p>Nessun prodotto trovato.</p>";
         }
         ?>
-        <hr>
-
     </div>
+</div>
 
-    <!--MODALE ADD ARTICOLO-->
-    <div class="modal fade" id="modalAddArticolo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-white">
-                    <label for="nomeArticolo">Nome Articolo</label>
-                    <input type="text" id="nomeArticolo" class="input-group">
 
-                    <label for="descrizioneArticolo" class="mt-3">Descrizione Articolo</label>
-                    <textarea class="form-control" id="descrizioneArticolo" rows="3"></textarea>
 
-                    <div class="row mt-3">
-                        <div class="col">
-                            <label for="prezzoArticolo">Prezzo Articolo</label>
-                            <input type="number" id="prezzoArticolo" class="input-group">
-                        </div>
-                        <div class="col">
-                            <label for="stockArticolo">Stock Articolo</label>
-                            <input type="number" id="stockArticolo" class="input-group">
-                        </div>
-                    </div>
-
-                    <!--
-                    <form>
-                        <div class="form-group">
-                          <label for="caricaFoto">Carica Foto</label>
-                          <input type="file" class=" btn btn-primary" id="caricaFoto">
-                        </div>
-                      </form>
-                    -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Aggiungi</button>
-                </div>
+        <hr>
+        <h1>Divani </h1>
+        <hr>
+        <h1>Letti</h1>
+        <hr>
+        <h1>Scrivanie</h1>
+        <hr>
+        <h1>Sedie</h1>
+        <hr>
+        <h2 class="mt-5">Metodi di pagamento</h2>
+        <div class="row">
+            <div class="col  text-center mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+                    <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" />
+                    <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
+                </svg> <br>
+                <p>Credit Card</p>
+            </div>
+            <div class="col  text-center mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-paypal" viewBox="0 0 16 16">
+                    <path d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.35.35 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91q.57-.403.993-1.005a4.94 4.94 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.7 2.7 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.7.7 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016q.326.186.548.438c.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.87.87 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.35.35 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32z" />
+                </svg> <br>
+                <p>PayPal</p>
+            </div>
+            <div class="col  text-center mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-envelope-paper" viewBox="0 0 16 16">
+                    <path d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267zm13 .566v5.734l-4.778-2.867zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083zM1 13.116V7.383l4.778 2.867L1 13.117Z" />
+                </svg> <br>
+                <p>Bonifico Bancario</p>
             </div>
         </div>
+        <hr>
     </div>
-    <!--FINE MODALE ADD ARTICOLO-->
 
-
-    <!--MODALE AREA PRIVATA -->
+    <!--MODALE -->
     <div class="modal fade  " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content bg-dark">
@@ -328,7 +312,7 @@
         </div>
     </div>
 
-    <!--FINE MODALE AREA PRIVATA-->
+    <!--FINE MODALE-->
 
 
 
