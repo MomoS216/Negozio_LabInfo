@@ -1,4 +1,5 @@
 <?php
+
 require('../Connessione/connessione.php');
 require('../Connessione/funzioni.php');
 // Verifica se il metodo di richiesta è POST

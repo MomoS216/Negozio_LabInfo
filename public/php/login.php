@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    if(loginUtente($username,$password)){
     header('Location: public/html/utente.html');
+
    }else{
     echo "login fallita";
    }

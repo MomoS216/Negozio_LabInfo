@@ -8,15 +8,30 @@ function registerUtente($username, $password, $ruolo, $stato,$nome,$cognome)
     global $conn;
 
     try {
+      //Primo Controllo
+        $sql_check = "SELECT COUNT(*) AS count FROM Utente WHERE Username = ? OR Nome = ? OR Cognome = ?";
+        $stmt_check = $conn->prepare($sql_check);
+        $stmt_check->execute([$username, $nome, $cognome]);
+        $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
 
+        if ($row['count'] > 0) {
+            return false;
+        }
+   //Secondo Controllo
+        if (strlen($password) < 8) {
+            return false;
+        }
+
+        //Inserimento
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql_register = "INSERT INTO Utente (Username, Password, Ruolo, Stato,Nome,Cognome) VALUES (?, ?, ?, ?, ?,?)";
+        $sql_register = "INSERT INTO Utente (Username, Password, Ruolo, Stato,Nome,Cognome) VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql_register);
-        $stmt->execute([$username, $hashed_password, $ruolo, $stato, $nome,$cognome]);
+        $stmt->execute([$username, $hashed_password, $ruolo, $stato, $nome, $cognome]);
 
         return true;
     } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
         return false;
     }
 }
