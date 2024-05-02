@@ -24,7 +24,6 @@ function loginUtente($username, $password)
 {
     require("../../Database/connessione.php");
     global $connessione;
-
     try {
         $username = $connessione->quote($username);
         $sql = "SELECT * FROM Utente WHERE Username = $username";
