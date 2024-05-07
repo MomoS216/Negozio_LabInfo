@@ -37,7 +37,7 @@
 
     <div class="container nascondi  " id="divLoginUtente">
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
-            <div class="bg-white" style="width: 500px; height: 600px; border-radius: 15px;">
+            <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
                 <h2 class="text-center mt-3"><strong>Accedi al tuo account</strong></h2>
                 <br><br><br>
                 <form method="POST" action="../php/login.php">
@@ -58,11 +58,11 @@
     </div>
 
 
-    <div class="container nascondi " id="divRegistrati">
+    <div class="container nascondi " id="divRegistrati" >
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
-            <div class="bg-white" style="width: 500px; height: 600px; border-radius: 15px;">
+            <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
                 <h2 class="text-center mt-3"><strong>Crea il tuo account</strong></h2>
-                <br><br><br>
+                <br><br>
                 <form method="POST" action="../php/registrazione.php">
                     <div class="container" style="width: 80%;">
                     <div class="row mb-3">
@@ -98,7 +98,7 @@
 
     <div class="nascondi" id="divLoginAdmin">
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
-            <div class="bg-white" style="width: 500px; height: 600px; border-radius: 15px;">
+            <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
                 <h2 class="text-center mt-3"><strong>Accedi al tuo account Admin</strong></h2>
                 <br><br><br>
                 <form method="POST" action="../php/registrazione.php">
@@ -124,9 +124,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-
-
-
 
         const divLoginAdmin = document.getElementById("divLoginAdmin");
         const divLoginUtente = document.getElementById("divLoginUtente");
