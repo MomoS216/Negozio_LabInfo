@@ -58,7 +58,7 @@
         </div>
     </div>
 
-
+<!--
     <div class="container nascondi " id="divRegistrati">
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
             <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
@@ -119,66 +119,10 @@
             </div>
         </div>
     </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-
-        const divLoginAdmin = document.getElementById("divLoginAdmin");
-        const divLoginUtente = document.getElementById("divLoginUtente");
-        const divRegistrati = document.getElementById("divRegistrati");
-
-        const goToAccediUtente = document.getElementById("goToAccediUtente");
-        const goToAccediAdmin = document.getElementById("goToAccediAdmin");
-        const goToAccediRegistrati = document.getElementById("goToAccediRegistrati");
-
-
-        goToAccediAdmin.onclick = () => {
-            divLoginAdmin.classList.remove("nascondi");
-            divLoginAdmin.classList.add("mostra");
-
-            divLoginUtente.classList.remove("mostra");
-            divLoginUtente.classList.add("nascondi");
-
-            divRegistrati.classList.remove("mostra");
-            divRegistrati.classList.add("nascondi");
-        }
-
-        goToAccediUtente.onclick = () => {
-
-            divLoginUtente.classList.remove("nascondi");
-            divLoginUtente.classList.add("mostra");
-
-            divLoginAdmin.classList.remove("mostra");
-            divLoginAdmin.classList.add("nascondi");
-
-            divRegistrati.classList.remove("mostra");
-            divRegistrati.classList.add("nascondi");
-        }
-
-        goToAccediRegistrati.onclick = () => {
-
-            divRegistrati.classList.remove("nascondi");
-            divRegistrati.classList.add("mostra");
-
-            divLoginAdmin.classList.remove("mostra");
-            divLoginAdmin.classList.add("nascondi");
-
-            divLoginUtente.classList.remove("mostra");
-            divLoginUtente.classList.add("nascondi");
-        }
-
-
-        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-
-    </script>
-
+    -->
     <?php
+    require('../Connessione/connessione.php');
+    require('../Connessione/funzioni.php');
     // Verifica se il metodo di richiesta è POST per il form di accesso utente
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Controlla se il form è per l'accesso utente o per la registrazione
@@ -192,7 +136,8 @@
 
 
             if(loginUtente($_POST["usernameAccedi"],$_POST["passwordAccedi"])){
-                header('Location: public/html/utente.html');
+                header('Location: public/html/utente.php');
+                exit(); 
                }else{
                 echo "login fallita";
                }
@@ -213,6 +158,7 @@
         }
     }
     ?>
+    
 
 </body>
 
