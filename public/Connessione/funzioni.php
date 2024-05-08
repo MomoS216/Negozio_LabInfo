@@ -36,6 +36,7 @@ function registerUtente($username, $password, $ruolo, $stato,$nome,$cognome)
     }
 }
 
+//lOGIN
 function loginUtente($username, $password)
 {
     global $conn;
@@ -58,7 +59,7 @@ function loginUtente($username, $password)
     }
 }
 
-
+//Seleziona utenti
 function selezionaUtenti() {
     global $conn;
 
@@ -74,8 +75,91 @@ function selezionaUtenti() {
     }
 }
 
+function RichiediUtente($username, $password){
+    global $conn;
+
+    try {
+        $sql = "SELECT * FROM Utente
+         WHERE username = $username, 
+         password= $password";
+        $stmt = $conn->query($sql);
+        $utenti = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $utenti;
+    } catch (PDOException $e) {
+        
+        echo "Errore nella selezione degli utenti: " . $e->getMessage();
+        return array();
+    }
+}
+//Cambia nome
+function CambioUsername($SessioneID, $UsernameNuovo){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Username FROM Utente
+        SET username = $UsernameNuovo,
+        WHERE ID_Utente = $SessioneID";
+        $stmt = $conn->query($sql);
+        $stmt->execute([$UsernameNuovo]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+
+//Cambia pass
+function CambioPass($SessioneID, $PasswordNuovo){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Username FROM Utente
+        SET Password = $PasswordNuovo,
+        WHERE ID_Utente = $SessioneID";
+        $stmt = $conn->query($sql);
+        $stmt->execute([$PasswordNuovo]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+
+
 //---------------------------------------------------------------------------------
 //PRODOTTI
+
+
+function selezionaProdotti() {
+    global $conn;
+    try {
+        $sql = "SELECT * FROM Prodotto";
+        $stmt = $conn->query($sql);
+        $prodotti = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $prodotti;
+    } catch (PDOException $e) {
+        
+        echo "Errore nella selezione dei prodotti: " . $e->getMessage();
+        return array();
+    }
+}
+//Delete
+function deleteProduct($Nome) {
+{
+    global $conn;
+
+    try {
+        $sql = "DELETE FROM Prodotto * WHERE Nome = $Nome";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$Nome]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+}
+
+//Aggiungi 
 function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
 {
     global $conn;
@@ -90,39 +174,59 @@ function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
     }
 }
 
-function selezionaProdotti() {
-    global $conn;
 
-    try {
-        $sql = "SELECT * FROM Prodotto";
-        $stmt = $conn->query($sql);
-        $prodotti = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $prodotti;
-    } catch (PDOException $e) {
-        
-        echo "Errore nella selezione dei prodotti: " . $e->getMessage();
-        return array();
-    }
-}
 
-//PRODOTTI_ORDINATI
-function selezionaProdottiOrdinati()
+//Update prodotto
+function updateProdotto($id, $nome, $descrizione , $prezzo)
 {
     global $conn;
 
     try {
-        $sql = "SELECT Prodotto.Nome, Prodotto.Immagine, Prodotto.Descrizione, Prodotto.Prezzo
-        FROM Prodotto
-        JOIN Prodotti_Ordinati ON Prodotti_Ordinati.ID_Prodotto = Prodotto.ID_Prodotto
-        JOIN Ordine ON Ordine.ID_Ordine = Prodotti_Ordinati.ID_Ordine
-        JOIN Utente ON Utente.ID_Utente = Ordine.ID_Utente";
-
-        $stmt = $conn->query($sql);
+        $sql_update = "UPDATE Prodotto SET Nome = ?, Descrizione = ?, Prezzo = ? WHERE ID_Prodotto = ?";
+        
+        $stmt = $conn->prepare($sql_update);
+        $stmt->execute([$nome, $descrizione, $prezzo, $id]);
+        
         return true;
     } catch (PDOException $e) {
         return false;
     }
 }
+
+//X update prodotto 
+function selezionaProdottoPerID($ID_Prodotto) {
+    global $conn;
+
+    try {
+        $sql = "SELECT Nome, Descrizione, Prezzo FROM Prodotto WHERE ID_Prodotto = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$ID_Prodotto]);
+        $prodotto = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $prodotto;
+    } catch (PDOException $e) {
+        echo "Errore nella selezione del prodotto: " . $e->getMessage();
+        return array();
+    }
+}
+
+//Reset Stock
+function resetStock($Nome)
+{
+    global $conn;
+
+    try {
+        $sql = "UPDATE Prodotto
+        SET Stock = 15
+        WHERE Nome = $Nome";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$Nome]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+//PRODOTTI_ORDINATI
 
 function OrdinatiProdotti()
 {
