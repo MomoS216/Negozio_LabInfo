@@ -30,7 +30,7 @@
                 Exclusive Home Design
             </a>
 
-            <button class="btn btn-success" style="margin-left: 65%;">
+            <button class="btn btn-success" style="margin-left: 65%;" id="goToCart" onclick="window.location.href='carrello.php'">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                 </svg> Carrello
@@ -88,72 +88,100 @@
     <!--FINE OFFCANVAS-->
 
     <div class="container">
-        <h1 style="margin-top:100px" class="mb-3">Categorie</h1>
-        <div class="row justify-content-center text-center">
-            <div class="col">
-                <button class="btn btn-success" style="width: 300px;">Divani</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-success" style="width: 300px;">Letti</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-success" style="width: 300px;">Scrivanie</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-success" style="width: 300px;">Mensole</button>
-            </div>
-        </div>
+        <h1 style="margin-top:100px" class="mb-3">INFORMAZIONI</h1>
+        <p style="font-size: 25px">Da noi potrai trovare diversi pezzi di arredo unici in ogni dettaglio, prodotti interamente in italia. <br> Spedizioni veloci e supporto cliente post acquisto. </p>
         <hr>
 
-        <h1 class="mt-5">Articoli in sconto</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <?php
-        require("../Connessione/connessione.php");
-        require_once("../Connessione/funzioni.php");
-        $prodotti = selezionaProdotti();
+        <h1 class="mt-5">Articoli in vendita</h1>
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php
+                require("../Connessione/connessione.php");
+                require_once("../Connessione/funzioni.php");
+                $prodotti = selezionaProdotti();
+                $sezione_inizializzata = false;
 
-        if (count($prodotti) > 0) {
-            foreach ($prodotti as $prodotto) {
-                echo "<div class='col mt-2 mb-2'>";
-                echo "<div class='card h-100' style='width: 18rem;'>"; // Imposta l'altezza massima per la card
-                echo "<img src='" . $prodotto['Immagine'] . "' class='card-img-top' alt=''>";
-                echo "<div class='card-body'>";
-                echo "<h5 class='card-title'>" . $prodotto['Nome'] . "</h5>";
-                echo "<div style='height: 100px; overflow-y: auto;'>"; // Imposta l'altezza massima per il testo della descrizione
-                echo "<p class='card-text'>" . $prodotto['Descrizione'] . "</p>";
-                echo "</div>"; // Fine del div per il testo della descrizione
-                echo "<h4>" . $prodotto['Prezzo'] . " €</h4>";
-                echo "<div class='d-flex justify-content-between align-items-center mt-auto'>";
-                echo "<div>";
-                echo "<a href='#' class='btn btn-primary'>";
-                echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-cart-plus' viewBox='0 0 16 16'>
+                if (count($prodotti) > 0) {
+                    foreach ($prodotti as $prodotto) {
+                        $primaParola = explode(" ", $prodotto['Nome'])[0];
+
+                        if ($sezione_inizializzata && $primaParola != $parolaCorr) {
+                            echo "<hr class='mb-3 mt-3'>";
+                            echo "<h2>" . $primaParola . "</h2>";
+                        } elseif (!$sezione_inizializzata) {
+                            echo "<h2>" . $primaParola . "</h2>";
+                            $sezione_inizializzata = true;
+                        }
+
+                        $parolaCorr = $primaParola;
+                        echo "<div class='col mt-2 mb-2'>";
+                        echo "<div class='card h-100' style='width: 18rem;'>"; // Imposta l'altezza massima per la card
+                        echo "<img src='" . $prodotto['Immagine'] . "' class='card-img-top' alt=''>";
+                        echo "<div class='card-body'>";
+                        echo "<h5 class='card-title'>" . $prodotto['Nome'] . "</h5>";
+                        echo "<div style='height: 100px; overflow-y: auto;'>"; // Imposta l'altezza massima per il testo della descrizione
+                        echo "<p class='card-text'>" . $prodotto['Descrizione'] . "</p>";
+                        echo "</div>"; // Fine del div per il testo della descrizione
+                        echo "<h4>" . $prodotto['Prezzo'] . " €</h4>";
+                        echo "<div class='d-flex justify-content-between align-items-center mt-auto'>";
+                        echo "<div>";
+                        echo "<button type='button' id='add" . $prodotto['ID_Prodotto'] . "' class='btn btn-primary bottoneAdd'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-cart-plus' viewBox='0 0 16 16'>
                 <path d='M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z' />
                 <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0' />
             </svg>";
-                echo "</a>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>"; // Fine del card-body
-                echo "</div>"; // Fine della card
-                echo "</div>"; // Fine della col
-            }
-        }
-        ?>
-    </div>
-</div>
+                        echo "</a>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>"; // Fine del card-body
+                        echo "</div>"; // Fine della card
+                        echo "</div>"; // Fine della col
+                    }
+                }
+                ?>
+            </div>
+        </div>
+
+        <!-- Form nascosta per inviare gli ID degli articoli al server -->
+        <form id="carrelloForm" action="addToCart.php" method="post" style="display: none;">
+            <input type="hidden" name="carrello" id="carrelloInput">
+        </form>
+
+        <script>
+            const allBottoniAdd = document.querySelectorAll('.bottoneAdd');
+
+            allBottoniAdd.forEach(function(bottone) {
+                bottone.addEventListener('click', function() {
+                    let idBottone = bottone.id;
+                    const idDef = idBottone.replace("add", "");
+
+                    // Recupera l'array degli ID degli articoli dal sessionStorage
+                    let carrello = JSON.parse(sessionStorage.getItem('carrello')) || [];
+
+                    // Aggiungi l'ID dell'articolo appena premuto all'array del carrello
+                    carrello.push(idDef);
+
+                    // Aggiorna il sessionStorage con il nuovo array
+                    sessionStorage.setItem('carrello', JSON.stringify(carrello));
+                    console.log("array caricato in sessione: ");
+                    console.log(sessionStorage.getItem("carrello"));
+                    console.log("-----------------------------");
+
+                    // Aggiorna il valore dell'input della forma con gli ID degli articoli nel carrello
+                    document.getElementById('carrelloInput').value = JSON.stringify(carrello);
+
+                    document.getElementById("goToCart").onclick = () => {
+                        // Invia automaticamente la forma al server quando viene aggiunto un articolo al carrello
+                        document.getElementById('carrelloForm').submit();
+                    }
+
+                });
+            });
+        </script>
 
 
 
-        <hr>
-        <h1>Divani </h1>
-        <hr>
-        <h1>Letti</h1>
-        <hr>
-        <h1>Scrivanie</h1>
-        <hr>
-        <h1>Sedie</h1>
-        <hr>
+
         <h2 class="mt-5">Metodi di pagamento</h2>
         <div class="row">
             <div class="col  text-center mt-3">
