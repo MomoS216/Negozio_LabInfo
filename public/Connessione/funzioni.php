@@ -18,7 +18,7 @@ function registerUtente($username, $password, $ruolo, $stato,$nome,$cognome)
             return false;
         }
    //Secondo Controllo
-        if (strlen($password) < 8) {
+        if (strlen($password) > 8) {
             return false;
         }
 

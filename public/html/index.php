@@ -1,3 +1,7 @@
+<?php 
+require_once('../Connessione/funzioni.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -71,13 +75,11 @@
                                 <label for="nomeRegistrati">Nome <span style="color:red" data-bs-toggle="tooltip"
                                         data-bs-html="true" title="Campo obbligatorio">*</span></label>
                                 <input type="text" class="form-control" placeholder="" name="nomeRegistrati" id="nomeRegistrati" required>
-
                             </div>
                             <div class="col">
                                 <label for="cognomeRegistrati">Cognome <span style="color:red" data-bs-toggle="tooltip"
                                         data-bs-html="true" title="Campo obbligatorio">*</span></label>
                                 <input type="text" class="form-control" placeholder="" name="cognomeRegistrati" id="cognomeRegistrati" required>
-
                             </div>
                         </div>
                         <label for="usernameRegistrati">Username <span style="color:red" data-bs-toggle="tooltip"
@@ -119,22 +121,9 @@
             </div>
         </div>
     </div>
-    -->
-    <?php
-    require('../Connessione/connessione.php');
-    require('../Connessione/funzioni.php');
-    // Verifica se il metodo di richiesta è POST per il form di accesso utente
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Controlla se il form è per l'accesso utente o per la registrazione
-        if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
-            // Form di accesso utente
-            echo '<div class="alert alert-success" role="alert">
-                Hai effettuato l\'accesso con successo!
-            </div>';
-            echo "<p>Username: {$_POST['usernameAccedi']}</p>";
-            echo "<p>Password: {$_POST['passwordAccedi']}</p>";
 
 
+<<<<<<< HEAD
             if(loginUtente($_POST["usernameAccedi"],$_POST["passwordAccedi"])){
                 header('Location: public/html/utente.php');
                 $_SESSION['logged_in'] = true;
@@ -143,24 +132,107 @@
                }else{
                 echo "login fallita";
                }
+=======
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        const divLoginAdmin = document.getElementById("divLoginAdmin");
+        const divLoginUtente = document.getElementById("divLoginUtente");
+        const divRegistrati = document.getElementById("divRegistrati");
+
+        const goToAccediUtente = document.getElementById("goToAccediUtente");
+        const goToAccediAdmin = document.getElementById("goToAccediAdmin");
+        const goToAccediRegistrati = document.getElementById("goToAccediRegistrati");
+>>>>>>> dcf35e1629f9cd859093bcc138efa028ff290ab5
 
 
-        } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"])) {
-            // Form di registrazione
-            echo '<div class="alert alert-info" role="alert">
-                La registrazione è stata effettuata con successo!
-            </div>';
-            echo "<p>Username: {$_POST['usernameRegistrati']}</p>";
-            echo "<p>Password: {$_POST['passwordRegistrati']}</p>";
-        } else {
-            // Nessun form è stato inviato
-            echo '<div class="alert alert-warning" role="alert">
-                Nessuna azione eseguita.
-            </div>';
+        goToAccediAdmin.onclick = () => {
+            divLoginAdmin.classList.remove("nascondi");
+            divLoginAdmin.classList.add("mostra");
+
+            divLoginUtente.classList.remove("mostra");
+            divLoginUtente.classList.add("nascondi");
+
+            divRegistrati.classList.remove("mostra");
+            divRegistrati.classList.add("nascondi");
         }
+
+        goToAccediUtente.onclick = () => {
+
+            divLoginUtente.classList.remove("nascondi");
+            divLoginUtente.classList.add("mostra");
+
+            divLoginAdmin.classList.remove("mostra");
+            divLoginAdmin.classList.add("nascondi");
+
+            divRegistrati.classList.remove("mostra");
+            divRegistrati.classList.add("nascondi");
+        }
+
+        goToAccediRegistrati.onclick = () => {
+
+            divRegistrati.classList.remove("nascondi");
+            divRegistrati.classList.add("mostra");
+
+            divLoginAdmin.classList.remove("mostra");
+            divLoginAdmin.classList.add("nascondi");
+
+            divLoginUtente.classList.remove("mostra");
+            divLoginUtente.classList.add("nascondi");
+        }
+
+
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+       
+
+    </script>
+
+<?php
+// Verifica se il metodo di richiesta è POST per il form di accesso utente
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Controlla se il form è per l'accesso utente o per la registrazione
+    if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
+        // Form di accesso utente
+        $username = $_POST["usernameAccedi"];
+        $password = $_POST["passwordAccedi"];
+        
+        // Esegui il login e verifica le credenziali
+        if (loginUtente($username, $password)) {
+            // Reindirizza l'utente dopo il login
+            echo '<script>window.location.href = "./utente.php";</script>';
+            $_SESSION['username'] = $username;
+            exit; // Termina lo script per evitare l'output aggiuntivo
+        } else {
+            // Login fallito
+            echo '<div class="alert alert-danger" role="alert">Login fallito</div>';
+        }
+    } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"])) {
+        $usernameRegistrati=$_POST["usernameRegistrati"];
+        $nomeRegistrati=$_POST["nomeRegistrati"];
+        $cognomeRegistrati=$_POST["cognomeRegistrati"];
+        $passwordRegistrati=$_POST["passwordRegistrati"];
+        // Form di registrazione
+        if(registerUtente($usernameRegistrati,$passwordRegistrati,0,0,$nomeRegistrati,$cognomeRegistrati)){ 
+        echo '<div class="alert alert-info" role="alert">
+            La registrazione è stata effettuata con successo!
+        </div>';
+        echo '<script>goToAccediUtente.click();</script>';
+        }else{
+            echo '<div class="alert alert-danger" role="alert">registrazione fallita</div>';
+        }
+    } else {
+        // Nessun form è stato inviato
+        echo '<div class="alert alert-warning" role="alert">
+            Nessuna azione eseguita.
+        </div>';
     }
-    ?>
-    
+}
+?>
 
 </body>
 

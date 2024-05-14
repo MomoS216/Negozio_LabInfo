@@ -96,7 +96,7 @@
                 require("../Connessione/connessione.php");
                 require_once("../Connessione/funzioni.php");
 
-                // Assicurati di avviare la sessione
+                // Avvia la sessione
                 session_start();
                
               
@@ -123,9 +123,14 @@
                             echo "<td>" . $prodotto['Nome'] . "</td>";
                             echo "<td>" . $prodotto['Descrizione'] . "</td>";
                             echo "<td>" . $prodotto['Prezzo'] . "</td>";
-                            echo "<td> <button type='button' id='canc" . $ID_Prodotto . "' class='btn btn-danger btn-sm cancProd'>X</button>";
-                            $totCart += $prodotto['Prezzo'];
+                            echo "<td>";
+                            echo "<form method='POST' action='rimuovi_prodotto.php' style='display:inline;'>";
+                            echo "<input type='hidden' name='ID_Prodotto' value='" . $ID_Prodotto . "'>";
+                            echo "<button type='submit' class='btn btn-danger btn-sm'>X</button>";
+                            echo "</form>";
+                            echo "</td>";
                             echo "</tr>";
+                            $totCart += $prodotto['Prezzo'];
                         }
                     }
 
