@@ -9,4 +9,9 @@ $_SESSION['carrello'] = $carrello;
 
 // Reindirizza l'utente alla pagina del carrello
 header("Location: carrello.php");
+
+
+   
+  
+  
 ?>

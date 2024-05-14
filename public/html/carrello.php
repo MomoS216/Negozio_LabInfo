@@ -98,7 +98,8 @@
 
                 // Avvia la sessione
                 session_start();
-
+               
+              
                 if (isset($_SESSION['carrello']) && is_array($_SESSION['carrello'])) {
                     $totCart = 0;
                     echo "<table class='table table-dark table-striped' id='tableArticoli'>";
@@ -136,7 +137,9 @@
                     echo "</tbody>";
                     echo "</table>";
                     echo "<p class='' style='font-size:20px; text-align:right; margin-right:10px'>Totale carrello: " . $totCart . " € ㅤㅤㅤ</p>";
-                    echo "<button type='button' class='btn btn-success btn-sm' style='width:100%'>Acquista Ora</button>";
+                    echo "<form method='POST' action='prova.php'  style='display:inline;'>"; 
+                    echo "<button type='button' class='btn btn-success btn-sm' id='invioAcquista' style='width:100%'>Acquista Ora</button>";
+                    echo "</form>";
                 } else {
                     echo "<p>Nessun prodotto aggiunto.</p>";
                 }

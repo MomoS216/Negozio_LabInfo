@@ -123,6 +123,16 @@ session_start();
     </div>
 
 
+<<<<<<< HEAD
+            if(loginUtente($_POST["usernameAccedi"],$_POST["passwordAccedi"])){
+                header('Location: public/html/utente.php');
+                $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $username;
+                exit(); 
+               }else{
+                echo "login fallita";
+               }
+=======
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -135,6 +145,7 @@ session_start();
         const goToAccediUtente = document.getElementById("goToAccediUtente");
         const goToAccediAdmin = document.getElementById("goToAccediAdmin");
         const goToAccediRegistrati = document.getElementById("goToAccediRegistrati");
+>>>>>>> dcf35e1629f9cd859093bcc138efa028ff290ab5
 
 
         goToAccediAdmin.onclick = () => {
