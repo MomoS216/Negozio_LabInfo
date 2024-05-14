@@ -62,7 +62,7 @@ session_start();
         </div>
     </div>
 
-<!--
+
     <div class="container nascondi " id="divRegistrati">
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
             <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
@@ -123,16 +123,6 @@ session_start();
     </div>
 
 
-<<<<<<< HEAD
-            if(loginUtente($_POST["usernameAccedi"],$_POST["passwordAccedi"])){
-                header('Location: public/html/utente.php');
-                $_SESSION['logged_in'] = true;
-                $_SESSION['username'] = $username;
-                exit(); 
-               }else{
-                echo "login fallita";
-               }
-=======
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -145,7 +135,6 @@ session_start();
         const goToAccediUtente = document.getElementById("goToAccediUtente");
         const goToAccediAdmin = document.getElementById("goToAccediAdmin");
         const goToAccediRegistrati = document.getElementById("goToAccediRegistrati");
->>>>>>> dcf35e1629f9cd859093bcc138efa028ff290ab5
 
 
         goToAccediAdmin.onclick = () => {
@@ -205,17 +194,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (loginUtente($username, $password)) {
             // Reindirizza l'utente dopo il login
             echo '<script>window.location.href = "./utente.php";</script>';
-            $_SESSION['username'] = $username;
+            $_SESSION['username'] = $username;// Appena fai il login fai la sessione username
             exit; // Termina lo script per evitare l'output aggiuntivo
         } else {
             // Login fallito
             echo '<div class="alert alert-danger" role="alert">Login fallito</div>';
         }
     } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"])) {
+    
         $usernameRegistrati=$_POST["usernameRegistrati"];
         $nomeRegistrati=$_POST["nomeRegistrati"];
         $cognomeRegistrati=$_POST["cognomeRegistrati"];
         $passwordRegistrati=$_POST["passwordRegistrati"];
+        
         // Form di registrazione
         if(registerUtente($usernameRegistrati,$passwordRegistrati,0,0,$nomeRegistrati,$cognomeRegistrati)){ 
         echo '<div class="alert alert-info" role="alert">

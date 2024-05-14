@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('funzioni2.php');
+require_once('funzioni1.php');
 
 
 $name = isset($_POST["name"]) ? $_POST["name"] : '';
