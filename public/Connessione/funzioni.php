@@ -59,6 +59,39 @@ function loginUtente($username, $password)
     }
 }
 
+//lOGIN
+function checkAdmin()
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT Username FROM Utente WHERE Ruolo = 1";
+        $stmt = $conn->prepare($sql);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return true;
+    } catch (PDOException $e) {
+      
+        echo "Login failed: " . $e->getMessage();
+    }
+}
+//SelectByID
+function SelectByID($username)
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT ID_Utente FROM Utente WHERE Username = $username" ;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+return $user;
+    } catch (PDOException $e) {
+      
+        echo "Login failed: " . $e->getMessage();
+    }
+}
+
 //Seleziona utenti
 function selezionaUtenti() {
     global $conn;
@@ -246,6 +279,19 @@ function OrdinatiProdotti()
     }
 }
 
+function inserisciDettaglioOrdine($ID_Ordine, $id_prodotto, $quantita) {
+    
+    global $conn;
+    try {
+        $sql = "INSERT INTO Prodotti_Ordinati (ID_Ordine, ID_Prodotto, Quantità) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$ID_Ordine, $id_prodotto, $quantita]);
+        return true;
+    } catch (PDOException $e) {
+        echo "Error insert order details: " . $e->getMessage();
+        return false;
+    }
+}
 //---------------------------------------------------------------------------------
 //ORDINI
 function inserisciOrdine($id_utente, $data_ordine, $stato)
@@ -258,6 +304,19 @@ function inserisciOrdine($id_utente, $data_ordine, $stato)
         $stmt->execute([$id_utente, $data_ordine, $stato]);
         return true;
     } catch (PDOException $e) {
+        return false;
+    }
+}
+function selectByIDOrdine($id_utente)
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT ID_Ordine FROM Ordine WHERE ID_Utente = $id_utente";
+        $stmt = $conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error fetching product details: " . $e->getMessage();
         return false;
     }
 }

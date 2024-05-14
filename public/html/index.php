@@ -137,6 +137,8 @@
 
             if(loginUtente($_POST["usernameAccedi"],$_POST["passwordAccedi"])){
                 header('Location: public/html/utente.php');
+                $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $username;
                 exit(); 
                }else{
                 echo "login fallita";
