@@ -62,7 +62,7 @@ session_start();
         </div>
     </div>
 
-
+<!--
     <div class="container nascondi " id="divRegistrati">
         <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
             <div class="bg-white" style="width: 500px; height: 400px; border-radius: 15px;">
