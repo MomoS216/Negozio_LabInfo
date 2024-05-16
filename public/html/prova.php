@@ -12,7 +12,7 @@ $_SESSION['carrello'] = $carrello;
 if (isset($_SESSION['username'])) {
     $saveUsername =  $_SESSION['username'];
     $getIDUSER = SelectByID($saveUsername);
-    $insert2 = inserisciOrdine($getIDUSER['ID_Utente'], $date, 1);
+    $insert2 = inserisciOrdine($getIDUSER['ID_Utente'], $date, 0);
 
     //Inserimento Ordine
     $selectByIDOrdine = selectByIDOrdine($getIDUSER['ID_Utente']);

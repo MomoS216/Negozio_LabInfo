@@ -144,11 +144,24 @@ function CambioPass($SessioneID, $PasswordNuovo){
 }
 
 //Cambia Stato (Cambia)
-function CambiaStato($SessioneID){
+function CambiaStatoUtente($SessioneID){
     global $conn;
 
     try {
         $sql = "UPDATE Utente SET Stato = 1 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function CambiaStatoOrdine($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Ordine SET Stato = 1 WHERE ID_Utente = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$SessioneID]);
         return true;
