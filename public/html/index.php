@@ -186,22 +186,16 @@ session_start();
     </script>
 
 <?php
-// Verifica se il metodo di richiesta è POST per il form di accesso utente
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Controlla se il form è per l'accesso utente o per la registrazione
     if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
-        // Form di accesso utente
         $username = $_POST["usernameAccedi"];
         $password = $_POST["passwordAccedi"];
         
-        // Esegui il login e verifica le credenziali
         if (loginUtente($username, $password)) {
-            // Reindirizza l'utente dopo il login
             echo '<script>window.location.href = "./utente.php";</script>';
-            $_SESSION['username'] = $username;// Appena fai il login fai la sessione username
-            exit; // Termina lo script per evitare l'output aggiuntivo
+            $_SESSION['username'] = $username;
+            exit;
         } else {
-            // Login fallito
             echo '<div class="alert alert-danger" role="alert">Login fallito</div>';
         }
     } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"]) && isset($_POST["passwordRegistrati1"])) {
@@ -211,7 +205,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $cognomeRegistrati=$_POST["cognomeRegistrati"];
             $passwordRegistrati=$_POST["passwordRegistrati"];
             
-            // Form di registrazione
             if(registerUtente($usernameRegistrati,$passwordRegistrati,0,0,$nomeRegistrati,$cognomeRegistrati)){ 
                 echo '<div class="alert alert-info" role="alert">
                     La registrazione è stata effettuata con successo!
@@ -224,22 +217,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<div class="alert alert-danger" role="alert">Password non coincidono</div>';
         }
     } elseif (isset($_POST["usernameAdmin"]) && isset($_POST["passwordAdmin"])) {
-        // Form di accesso amministratore
         $username = $_POST["usernameAdmin"];
         $password = $_POST["passwordAdmin"];
         
-        // Esegui il login e verifica le credenziali dell'amministratore
         if (checkAdmin($username, $password)) {
-            // Reindirizza l'amministratore dopo il login
             echo '<script>window.location.href = "./admin.php";</script>';
-            $_SESSION['username'] = $username; // Imposta la sessione dell'amministratore
-            exit; // Termina lo script per evitare l'output aggiuntivo
+            $_SESSION['username'] = $username; 
+            exit; 
         } else {
-            // Login fallito per l'amministratore
+            
             echo '<div class="alert alert-danger" role="alert">Login amministratore fallito</div>';
         }
     } else {
-        // Nessun form è stato inviato
+       
         echo '<div class="alert alert-warning" role="alert">Nessuna azione eseguita.</div>';
     }
 }
