@@ -2,26 +2,18 @@
 
 require_once('connessione.php');
 
+
 //UTENTI
 function registerUtente($username, $password, $ruolo, $stato,$nome,$cognome)
 {
     global $conn;
 
     try {
-      //Primo Controllo
-        $sql_check = "SELECT COUNT(*) AS count FROM Utente WHERE Username = ? OR Nome = ? OR Cognome = ?";
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->execute([$username, $nome, $cognome]);
-        $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
 
-        if ($row['count'] > 0) {
+//Se la password è minore di 8 ritorna false
+   if (strlen($password) <= 8) {
             return false;
-        }
-   //Secondo Controllo
-        if (strlen($password) < 8) {
-            return false;
-        }
-
+        } 
         //Inserimento
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql_register = "INSERT INTO Utente (Username, Password, Ruolo, Stato,Nome,Cognome) VALUES (?, ?, ?, ?, ?, ?)";
@@ -59,6 +51,38 @@ function loginUtente($username, $password)
     }
 }
 
+//lOGIN
+function checkAdmin()
+{
+    global $conn;
+    try {
+        $sql = "SELECT Username FROM Utente WHERE Ruolo = 1";
+        $stmt = $conn->prepare($sql);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return true;
+    } catch (PDOException $e) {
+    return false;  
+        echo "Login failed: " . $e->getMessage();
+    }
+}
+
+//SelectByID
+function SelectByID($username)
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT ID_Utente FROM Utente WHERE Username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    } catch (PDOException $e) {
+        echo "Login failed: " . $e->getMessage();
+    }
+}
+
 //Seleziona utenti
 function selezionaUtenti() {
     global $conn;
@@ -69,38 +93,35 @@ function selezionaUtenti() {
         $utenti = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $utenti;
     } catch (PDOException $e) {
-        
         echo "Errore nella selezione degli utenti: " . $e->getMessage();
         return array();
     }
 }
 
+//Select Utente
 function RichiediUtente($username, $password){
     global $conn;
 
     try {
-        $sql = "SELECT * FROM Utente
-         WHERE username = $username, 
-         password= $password";
-        $stmt = $conn->query($sql);
+        $sql = "SELECT * FROM Utente WHERE username = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$username, $password]);
         $utenti = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $utenti;
     } catch (PDOException $e) {
-        
         echo "Errore nella selezione degli utenti: " . $e->getMessage();
         return array();
     }
 }
-//Cambia nome
+
+//Cambia Username
 function CambioUsername($SessioneID, $UsernameNuovo){
     global $conn;
 
     try {
-        $sql = "UPDATE Username FROM Utente
-        SET username = $UsernameNuovo,
-        WHERE ID_Utente = $SessioneID";
-        $stmt = $conn->query($sql);
-        $stmt->execute([$UsernameNuovo]);
+        $sql = "UPDATE Utente SET username = ? WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$UsernameNuovo, $SessioneID]);
         return true;
     } catch (PDOException $e) {
         return false;
@@ -113,11 +134,36 @@ function CambioPass($SessioneID, $PasswordNuovo){
     global $conn;
 
     try {
-        $sql = "UPDATE Username FROM Utente
-        SET Password = $PasswordNuovo,
-        WHERE ID_Utente = $SessioneID";
-        $stmt = $conn->query($sql);
-        $stmt->execute([$PasswordNuovo]);
+        $sql = "UPDATE Utente SET Password = ? WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$PasswordNuovo, $SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+//Cambia Stato (Cambia)
+function CambiaStatoUtente($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Utente SET Stato = 1 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function CambiaStatoOrdine($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Ordine SET Stato = 1 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
         return true;
     } catch (PDOException $e) {
         return false;
@@ -126,10 +172,10 @@ function CambioPass($SessioneID, $PasswordNuovo){
 
 
 
+
 //---------------------------------------------------------------------------------
 //PRODOTTI
-
-
+// Seleziona Prodotti
 function selezionaProdotti() {
     global $conn;
     try {
@@ -138,18 +184,17 @@ function selezionaProdotti() {
         $prodotti = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $prodotti;
     } catch (PDOException $e) {
-        
         echo "Errore nella selezione dei prodotti: " . $e->getMessage();
         return array();
     }
 }
-//Delete
+
+// Delete Prodotto
 function deleteProduct($Nome) {
-{
     global $conn;
 
     try {
-        $sql = "DELETE FROM Prodotto * WHERE Nome = $Nome";
+        $sql = "DELETE FROM Prodotto WHERE Nome = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$Nome]);
         return true;
@@ -157,9 +202,8 @@ function deleteProduct($Nome) {
         return false;
     }
 }
-}
 
-//Aggiungi 
+// Inserisci Prodotto
 function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
 {
     global $conn;
@@ -174,9 +218,7 @@ function inserisciProdotto($immagine, $nome, $descrizione, $stock, $prezzo)
     }
 }
 
-
-
-//Update prodotto
+// Aggiorna Prodotto
 function updateProdotto($id, $nome, $descrizione , $prezzo)
 {
     global $conn;
@@ -193,7 +235,7 @@ function updateProdotto($id, $nome, $descrizione , $prezzo)
     }
 }
 
-//X update prodotto 
+// Seleziona Prodotto per ID
 function selezionaProdottoPerID($ID_Prodotto) {
     global $conn;
 
@@ -209,15 +251,13 @@ function selezionaProdottoPerID($ID_Prodotto) {
     }
 }
 
-//Reset Stock
+// Reset Stock
 function resetStock($Nome)
 {
     global $conn;
 
     try {
-        $sql = "UPDATE Prodotto
-        SET Stock = 15
-        WHERE Nome = $Nome";
+        $sql = "UPDATE Prodotto SET Stock = 15 WHERE Nome = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$Nome]);
         return true;
@@ -226,8 +266,9 @@ function resetStock($Nome)
     }
 }
 
-//PRODOTTI_ORDINATI
 
+//---------------------------------------------------------------------------------
+//PRODOTTI_ORDINATI
 function OrdinatiProdotti()
 {
     global $conn;
@@ -245,6 +286,21 @@ function OrdinatiProdotti()
         return false;
     }
 }
+//Inserisci PRODOTTI_ORDINATI
+function inserisciDettaglioOrdine($ID_Ordine, $id_prodotto, $quantita) {
+    
+    global $conn;
+    try {
+        $sql = "INSERT INTO Prodotti_Ordinati (ID_Ordine, ID_Prodotto, Quantità) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$ID_Ordine, $id_prodotto, $quantita]);
+        return true;
+    } catch (PDOException $e) {
+        echo "Error insert order details: " . $e->getMessage();
+        return false;
+    }
+}
+
 
 //---------------------------------------------------------------------------------
 //ORDINI
@@ -261,6 +317,30 @@ function inserisciOrdine($id_utente, $data_ordine, $stato)
         return false;
     }
 }
+
+function selectByIDOrdine($id_utente)
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT ID_Ordine 
+                FROM Ordine 
+                WHERE ID_Utente = ? 
+                AND Data_Ordine = (
+                    SELECT MAX(Data_Ordine) 
+                    FROM Ordine 
+                    WHERE ID_Utente = ?
+                )";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$id_utente, $id_utente]);
+        $latestOrder = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $latestOrder;
+    } catch (PDOException $e) {
+        echo "Error selectLatestOrderByUserID: " . $e->getMessage();
+        return false;
+    }
+}
+
 
 function fetchAllProductDetails()
 {
