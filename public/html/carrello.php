@@ -136,7 +136,9 @@
                     echo "</tbody>";
                     echo "</table>";
                     echo "<p class='' style='font-size:20px; text-align:right; margin-right:10px'>Totale carrello: " . $totCart . " € ㅤㅤㅤ</p>";
-                    echo "<button type='button' class='btn btn-success btn-sm' style='width:100%'>Acquista Ora</button>";
+                    echo "<form method='POST' action=''  style='display:inline;'>"; 
+                    echo "<button type='button' class='btn btn-success btn-sm' id='invioAcquista' style='width:100%'>Acquista Ora</button>";
+                    echo "</form>";
                 } else {
                     echo "<p>Nessun prodotto aggiunto.</p>";
                 }
