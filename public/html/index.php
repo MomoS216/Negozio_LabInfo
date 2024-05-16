@@ -90,6 +90,10 @@ session_start();
                                 data-bs-html="true" title="Campo obbligatorio">*</span></label>
                         <input type="password" id="passwordRegistrati" name="passwordRegistrati" class="form-control" required>
 
+                        <label for="passwordRegistrati" class="mt-3">Ripeti Password <span style="color:red" data-bs-toggle="tooltip"
+                                data-bs-html="true" title="Campo obbligatorio">*</span></label>
+                        <input type="password" id="passwordRegistrati1" name="passwordRegistrati1" class="form-control" required>
+
                         <button type="submit" id="bntRegistrati" class="btn btn-primary  btn-block mt-3" style="width: 100%;">Registrati</button>
                     </div>
                 </form>
@@ -200,30 +204,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Login fallito
             echo '<div class="alert alert-danger" role="alert">Login fallito</div>';
         }
-    } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"])) {
-    
-        $usernameRegistrati=$_POST["usernameRegistrati"];
-        $nomeRegistrati=$_POST["nomeRegistrati"];
-        $cognomeRegistrati=$_POST["cognomeRegistrati"];
-        $passwordRegistrati=$_POST["passwordRegistrati"];
+    } elseif (isset($_POST["usernameRegistrati"]) && isset($_POST["passwordRegistrati"]) && isset($_POST["passwordRegistrati1"])) {
+        if ($_POST["passwordRegistrati1"] == $_POST["passwordRegistrati"]) {
+            $usernameRegistrati=$_POST["usernameRegistrati"];
+            $nomeRegistrati=$_POST["nomeRegistrati"];
+            $cognomeRegistrati=$_POST["cognomeRegistrati"];
+            $passwordRegistrati=$_POST["passwordRegistrati"];
+            
+            // Form di registrazione
+            if(registerUtente($usernameRegistrati,$passwordRegistrati,0,0,$nomeRegistrati,$cognomeRegistrati)){ 
+                echo '<div class="alert alert-info" role="alert">
+                    La registrazione è stata effettuata con successo!
+                </div>';
+                echo '<script>goToAccediUtente.click();</script>';
+            } else {
+                echo '<div class="alert alert-danger" role="alert">Registrazione fallita</div>';
+            }
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Password non coincidono</div>';
+        }
+    } elseif (isset($_POST["usernameAdmin"]) && isset($_POST["passwordAdmin"])) {
+        // Form di accesso amministratore
+        $username = $_POST["usernameAdmin"];
+        $password = $_POST["passwordAdmin"];
         
-        // Form di registrazione
-        if(registerUtente($usernameRegistrati,$passwordRegistrati,0,0,$nomeRegistrati,$cognomeRegistrati)){ 
-        echo '<div class="alert alert-info" role="alert">
-            La registrazione è stata effettuata con successo!
-        </div>';
-        echo '<script>goToAccediUtente.click();</script>';
-        }else{
-            echo '<div class="alert alert-danger" role="alert">registrazione fallita</div>';
+        // Esegui il login e verifica le credenziali dell'amministratore
+        if (checkAdmin($username, $password)) {
+            // Reindirizza l'amministratore dopo il login
+            echo '<script>window.location.href = "./admin.php";</script>';
+            $_SESSION['username'] = $username; // Imposta la sessione dell'amministratore
+            exit; // Termina lo script per evitare l'output aggiuntivo
+        } else {
+            // Login fallito per l'amministratore
+            echo '<div class="alert alert-danger" role="alert">Login amministratore fallito</div>';
         }
     } else {
         // Nessun form è stato inviato
-        echo '<div class="alert alert-warning" role="alert">
-            Nessuna azione eseguita.
-        </div>';
+        echo '<div class="alert alert-warning" role="alert">Nessuna azione eseguita.</div>';
     }
 }
 ?>
+
 
 </body>
 

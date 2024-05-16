@@ -62,7 +62,7 @@ function checkAdmin()
 
     return true;
     } catch (PDOException $e) {
-      
+    return false;  
         echo "Login failed: " . $e->getMessage();
     }
 }
