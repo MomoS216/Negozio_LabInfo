@@ -10,11 +10,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
     <style>
-        body {
-            overflow: hidden;
-        }
+    
 
         .box-shadow {
             box-shadow: 10px 10px 5px lightblue;
