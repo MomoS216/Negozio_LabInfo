@@ -11,8 +11,6 @@ session_start();
     <title>E-commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-    
-
         .box-shadow {
             box-shadow: 10px 10px 5px lightblue;
         }
