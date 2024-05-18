@@ -286,6 +286,7 @@ function OrdinatiProdotti()
         return false;
     }
 }
+
 //Inserisci PRODOTTI_ORDINATI
 function inserisciDettaglioOrdine($ID_Ordine, $id_prodotto, $quantita) {
     
@@ -314,6 +315,38 @@ function inserisciOrdine($id_utente, $data_ordine, $stato)
         $stmt->execute([$id_utente, $data_ordine, $stato]);
         return true;
     } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function selectAllOrdersByStato0()
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT * FROM Ordine WHERE Stato = 0"; //Non evaso
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+        $allOrders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $allOrders;
+    } catch (PDOException $e) {
+        echo "Error selectAllOrders: " . $e->getMessage();
+        return false;
+    }
+}
+
+function selectAllOrdersByStato1()
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT * FROM Ordine WHERE Stato = 1"; // vaso
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+        $allOrders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $allOrders;
+    } catch (PDOException $e) {
+        echo "Error selectAllOrders: " . $e->getMessage();
         return false;
     }
 }

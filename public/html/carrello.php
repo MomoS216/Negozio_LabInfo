@@ -135,14 +135,9 @@
                     echo "</tbody>";
                     echo "</table>";
                     echo "<p class='' style='font-size:20px; text-align:right; margin-right:10px'>Totale carrello: " . $totCart . " € ㅤㅤㅤ</p>";
-<<<<<<< HEAD
-                    echo "<form method='POST' action=''  style='display:inline;'>"; 
-                    echo "<button type='button' class='btn btn-success btn-sm' id='invioAcquista' style='width:100%'>Acquista Ora</button>";
-=======
                     echo "<form method='POST' action='prova.php'>";
                     echo "<input type='hidden' name='carrello' value='" . json_encode($_SESSION['carrello']) . "'>";//Sessione carrello per prova.php
                     echo "<button type='submit' class='btn btn-success btn-sm' id='invioAcquista' style='width:100%'>Acquista Ora</button>";
->>>>>>> 0ba642c75fce888517e2a65eb664d28bf5acd650
                     echo "</form>";
                 } else {
                     echo "<p>Nessun prodotto aggiunto.</p>";
