@@ -8,6 +8,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+        .table{
+            margin-top: 100px;
+        }
         .mostra {
             display: block;
         }
@@ -22,7 +25,7 @@
 
 
 <body style="background-color: rgb(230, 230, 230);">
-    <!--    
+  
     <nav class="navbar navbar-dark bg-dark fixed-top mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -84,7 +87,7 @@
 
         </div>
     </div>
--->
+
 
 
     <div class="container">
