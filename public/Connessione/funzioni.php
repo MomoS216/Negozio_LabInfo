@@ -52,20 +52,20 @@ function loginUtente($username, $password)
 }
 
 //lOGIN
-function checkAdmin()
-{
+function checkAdmin($username) {
     global $conn;
     try {
-        $sql = "SELECT Username FROM Utente WHERE Ruolo = 1";
+        $sql = "SELECT Username FROM Utente WHERE Username = ? AND Ruolo = 1";
         $stmt = $conn->prepare($sql);
+        $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return true;
+        return $user ? true : false;
     } catch (PDOException $e) {
-    return false;  
-        echo "Login failed: " . $e->getMessage();
+        error_log("Check admin failed: " . $e->getMessage());
+        return false;
     }
 }
+
 
 //SelectByID
 function SelectByID($username)
