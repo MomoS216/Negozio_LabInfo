@@ -157,6 +157,48 @@ function CambiaStatoUtente($SessioneID){
     }
 }
 
+//Cambia Stato (Cambia)
+function CambiaRuoloUtente($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Utente SET Ruolo = 1 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+//Cambia Stato (Cambia)
+function TogliStatoUtente($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Utente SET Stato = 0 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+//Cambia Stato (Cambia)
+function TogliRuoloUtente($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Utente SET Ruolo = 0 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 function CambiaStatoOrdine($SessioneID){
     global $conn;
 
@@ -170,6 +212,18 @@ function CambiaStatoOrdine($SessioneID){
     }
 }
 
+function TogliStatoOrdine($SessioneID){
+    global $conn;
+
+    try {
+        $sql = "UPDATE Ordine SET Stato = 0 WHERE ID_Utente = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$SessioneID]);
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
 
 
 
@@ -355,6 +409,22 @@ function fetchAllProductDetails()
         return false;
     }
 }
+
+
+function getAllOrdini()
+{
+    global $conn;
+
+    try {
+        $sql = "SELECT * FROM Ordine";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 
 
 ?>

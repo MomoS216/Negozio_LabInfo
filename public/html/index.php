@@ -120,7 +120,7 @@ session_start();
             </div>
         </div>
     </div>
-<<<<<<< HEAD
+
 
     <?php
     require('../Connessione/connessione.php');
@@ -135,8 +135,9 @@ session_start();
             </div>';
             echo "<p>Username: {$_POST['usernameAccedi']}</p>";
             echo "<p>Password: {$_POST['passwordAccedi']}</p>";
-=======
->>>>>>> 0ba642c75fce888517e2a65eb664d28bf5acd650
+        }
+    }
+    ?>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

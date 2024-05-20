@@ -30,15 +30,6 @@
                 Exclusive Home Design (Amministrazione)
             </a>
 
-            <button class="btn btn-success" style="margin-left: 55%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
-                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                </svg> Carrello
-            </button>
-            <button type="button" class="btn btn-success" id="areaPrivata" data-toggle="modal" data-target="#exampleModal">
-                Area Privata
-            </button>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -102,97 +93,289 @@
         <h1>Articoli</h1>
 
         <?php
-       
         require("../Connessione/connessione.php");
         require_once("../Connessione/funzioni.php");
+
         $prodotti = selezionaProdotti();
 
-       
         if (count($prodotti) > 0) {
-            
-            echo "<table class='table table-dark table-striped ' id='tableArticoli'>";
+            echo "<table class='table table-dark table-striped' id='tableArticoli'>";
             echo "<thead>";
             echo "<tr>";
             echo "<th>ID</th>";
             echo "<th>Nome</th>";
             echo "<th>Descrizione</th>";
-            echo "<th>Azioni</th>"; 
-           
+            echo "<th>Prezzo</th>";
+            echo "<th>Stock</th>";
+            echo "<th>Azioni</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
 
-           
             foreach ($prodotti as $prodotto) {
                 echo "<tr>";
-                echo "<td>" . $prodotto['ID_Prodotto'] . "</td>";
+                echo "<td><strong>" . $prodotto['ID_Prodotto'] . "</strong></td>";
                 echo "<td>" . $prodotto['Nome'] . "</td>";
                 echo "<td>" . $prodotto['Descrizione'] . "</td>";
-                echo "<td class='col-2'>"; 
-               
-                echo "<button class='btn' id='cancella" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/bin.png' alt='cancella' width='30px'></button>";
-                echo "<button class='btn' id='modifica" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/modify2.png' alt='modifica' width='30px'></button>";
-                echo "<button class='btn' id='restock" . $prodotto['ID_Prodotto'] . "'><img src='/public/images/restock.png' alt='modifica' width='30px'></button>";
-                echo "</td>"; 
+                echo "<td>" . $prodotto['Prezzo'] . "</td>";
+                echo "<td>" . $prodotto['Stock'] . "</td>";
+                echo "<td class='col-2'>";
+                echo "<form method='post' action='gestisciProdotti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='cancella'>";
+                echo "<input type='hidden' name='nome_prodotto' value='" . $prodotto['Nome'] . "'>";
+                echo "<button type='submit' class='btn'><img src='/public/images/bin.png' alt='cancella' width='30px'></button>";
+                echo "</form>";
+                echo "<form method='post' action='gestisciProdotti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='modifica'>";
+                echo "<input type='hidden' name='id_prodotto' value='" . $prodotto['ID_Prodotto'] . "'>";
+                echo "<button type='submit' class='btn'><img src='/public/images/modify2.png' alt='modifica' width='30px'></button>";
+                echo "</form>";
+                echo "<form method='post' action='gestisciProdotti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='restock'>";
+                echo "<input type='hidden' name='nome_prodotto' value='" . $prodotto['Nome'] . "'>";
+                echo "<button type='submit' class='btn'><img src='/public/images/restock.png' alt='restock' width='30px'></button>";
+                echo "</form>";
+                echo "</td>";
                 echo "</tr>";
             }
 
-           
             echo "</tbody>";
             echo "</table>";
         } else {
-            
+            echo "<p>Nessun prodotto trovato.</p>";
+        }
+        ?>
+
+        <hr>
+
+        <h1>Utenti Registrati</h1>
+        <p style="font-size:20px">Gestisci i permessi</p>
+
+
+        <div class="row">
+            <div class="col-2">
+                <p><strong>Ruolo: </strong> </p>
+                <p> - 0: no admin</p>
+                <p> - 1: admin</p>
+            </div>
+            <div class="col-2">
+                <p><strong>Stato: </strong></p>
+                <p> - 0: no abilitato</p>
+                <p> - 1: abilitato</p>
+            </div>
+        </div>
+
+
+        <?php
+        require("../Connessione/connessione.php");
+        require_once("../Connessione/funzioni.php");
+
+        $result = selezionaUtenti();
+
+        if (count($result) > 0) {
+            echo "<table class='table table-dark table-striped' id='tabellaUtenti'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th>ID</th>";
+            echo "<th>Nome</th>";
+            echo "<th>Cognome</th>";
+            echo "<th>Username</th>";
+            echo "<th>Ruolo</th>";
+            echo "<th>Stato</th>";
+            echo "<th>Abilita Admin</th>";
+            echo "<th>Abilita Utente</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+
+            foreach ($result as $utente) {
+                echo "<tr>";
+                echo "<td><strong>" . $utente['ID_Utente'] . "</strong></td>";
+                echo "<td>" . $utente['Nome'] . "</td>";
+                echo "<td>" . $utente['Cognome'] . "</td>";
+                echo "<td>" . $utente['Username'] . "</td>";
+                echo "<td>" . $utente['Ruolo'] . "</td>";
+                echo "<td>" . $utente['Stato'] . "</td>";
+                echo "<td>";
+                echo "<form method='post' action='gestisciUtenti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='abilita_admin'>";
+                echo "<input type='hidden' name='id_utente' value='" . $utente['ID_Utente'] . "'>";
+                echo "<button type='submit' class='btn btn-primary'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check' viewBox='0 0 16 16'>
+                <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z'/>
+              </svg> </button>";
+                echo "</form>";
+                echo "<form method='post' action='gestisciUtenti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='togli_admin'>";
+                echo "<input type='hidden' name='id_utente' value='" . $utente['ID_Utente'] . "'>";
+                echo "<button type='submit' style='margin-left:10px' class='btn btn-danger'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x' viewBox='0 0 16 16'>
+                <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/>
+              </svg> </button>";
+                echo "</form>";
+                echo "</td>";
+                echo "<td>";
+                echo "<form method='post' action='gestisciUtenti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='abilita_utente'>";
+                echo "<input type='hidden' name='id_utente' value='" . $utente['ID_Utente'] . "'>";
+                echo "<button type='submit' class='btn btn-primary'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check' viewBox='0 0 16 16'>
+                <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z'/>
+              </svg> </button>";
+                echo "</form>";
+                echo "<form method='post' action='gestisciUtenti.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='togli_utente'>";
+                echo "<input type='hidden' name='id_utente' value='" . $utente['ID_Utente'] . "'>";
+                echo "<button type='submit' style='margin-left:10px' class='btn btn-danger'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x' viewBox='0 0 16 16'>
+                <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/>
+              </svg> </button>";
+                echo "</form>";
+                echo "</td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        } else {
             echo "<p>Nessun prodotto trovato.</p>";
         }
         ?>
         <hr>
+        <h1>Ordini degli utenti </h1>
+        <p><strong>Stato: </strong> </p>
+        <p> - 0: non evaso </p>
+        <p> - 1: evaso</p>
 
+        <?php
+        require("../Connessione/connessione.php");
+        require_once("../Connessione/funzioni.php");
+
+        $result2 = getAllOrdini();
+
+        if ($result2) {
+            echo "<table class='table table-dark table-striped' id='tabellaUtenti'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th>ID</th>";
+            echo "<th>ID_Utente</th>";
+            echo "<th>Data_Ordine</th>";
+            echo "<th>Stato</th>";
+            echo "<th>Evadi / non Evadi</th>";
+            echo "<th></th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+
+            foreach ($result2 as $ordine) {
+                echo "<tr>";
+                echo "<td><strong>" . $ordine['ID_Ordine'] . "</strong></td>";
+                echo "<td>" . $ordine['ID_Utente'] . "</td>";
+                echo "<td>" . $ordine['Data_Ordine'] . "</td>";
+                echo "<td>" . $ordine['Stato'] . "</td>";
+                echo "<td>";
+                echo "<form method='post' action='evadiOrdini.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='evadi'>";
+                echo "<input type='hidden' name='id_utente' value='" . $ordine['ID_Utente'] . "'>";
+                echo "<button type='submit' class='btn btn-primary'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check' viewBox='0 0 16 16'>
+        <path d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z'/>
+        </svg> </button>";
+                echo "</form>";
+                echo "<form method='post' action='evadiOrdini.php' style='display:inline;'>";
+                echo "<input type='hidden' name='azione' value='non_evadi'>";
+                echo "<input type='hidden' name='id_utente' value='" . $ordine['ID_Utente'] . "'>";
+                echo "<button type='submit' style='margin-left:10px' class='btn btn-danger'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x' viewBox='0 0 16 16'>
+        <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/>
+        </svg> </button>";
+                echo "</form>";
+                echo "</td>";
+                echo "<td> </td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        } else {
+            echo "<p>Nessun prodotto trovato.</p>";
+        }
+        ?>
+
+<hr>
     </div>
 
     <!--MODALE ADD ARTICOLO-->
     <div class="modal fade" id="modalAddArticolo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-white">
-                    <label for="nomeArticolo">Nome Articolo</label>
-                    <input type="text" id="nomeArticolo" class="input-group">
+                <form action="./addNewProdotto.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Aggiungi Articolo</h5>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-white">
+                        <label for="nomeArticolo">Nome Articolo</label>
+                        <input type="text" id="nomeArticolo" name="nomeArticolo" class="form-control">
 
-                    <label for="descrizioneArticolo" class="mt-3">Descrizione Articolo</label>
-                    <textarea class="form-control" id="descrizioneArticolo" rows="3"></textarea>
+                        <label for="descrizioneArticolo" class="mt-3">Descrizione Articolo</label>
+                        <textarea class="form-control" id="descrizioneArticolo" name="descrizioneArticolo" rows="3"></textarea>
 
-                    <div class="row mt-3">
-                        <div class="col">
-                            <label for="prezzoArticolo">Prezzo Articolo</label>
-                            <input type="number" id="prezzoArticolo" class="input-group">
-                        </div>
-                        <div class="col">
-                            <label for="stockArticolo">Stock Articolo</label>
-                            <input type="number" id="stockArticolo" class="input-group">
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="prezzoArticolo">Prezzo Articolo</label>
+                                <input type="number" id="prezzoArticolo" name="prezzoArticolo" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="stockArticolo">Stock Articolo</label>
+                                <input type="number" id="stockArticolo" name="stockArticolo" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="nomeImmagine">Nome Immagine: </label>
+                                <input type="text" id="nomeImmagine" name="nomeImmagine" class="form-control" placeholder="includi il formato">
+                            </div>
                         </div>
                     </div>
-
-                    <!--
-                    <form>
-                        <div class="form-group">
-                          <label for="caricaFoto">Carica Foto</label>
-                          <input type="file" class=" btn btn-primary" id="caricaFoto">
-                        </div>
-                      </form>
-                    -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Aggiungi</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="btn btn-primary">Aggiungi</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     <!--FINE MODALE ADD ARTICOLO-->
+
+
+    <!--MODALE MODIFICA ARTICOLO-->
+    <div class="modal fade" id="modalModificaArticolo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark">
+                <form action="./addNewProdotto.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">MODIFICA ARTICOLO ESISTENTE</h5>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-white">
+                        <label for="nomeArticolo">Nome Articolo</label>
+                        <input type="text" id="nomeArticolo" name="nomeArticolo" class="form-control">
+
+                        <label for="descrizioneArticolo" class="mt-3">Descrizione Articolo</label>
+                        <textarea class="form-control" id="descrizioneArticolo" name="descrizioneArticolo" rows="3"></textarea>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="prezzoArticolo">Prezzo Articolo</label>
+                                <input type="number" id="prezzoArticolo" name="prezzoArticolo" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="btn btn-primary">Aggiungi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--FINE MODALE MODIFICA ARTICOLO-->
+
 
 
     <!--MODALE AREA PRIVATA -->

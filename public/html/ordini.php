@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce</title>
@@ -16,12 +17,9 @@
             display: none;
         }
     </style>
-</head>
-
-
-
-<body style="background-color: rgb(230, 230, 230);">
-
+    </head>
+    <body>
+        
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark fixed-top mb-5">
         <div class="container-fluid">
@@ -81,80 +79,22 @@
     <button type="button" class="btn btn-danger" id="back" onclick="window.location.href='utente.php'" style="margin-left:50px; margin-top:80px">
         < </button>
 
-            <div class="container">
-                <h1>Prodotti nel carrello </h1>
 
-                <script>
-                    window.onload = () => {
-
-                        console.log(sessionStorage.getItem("carrello"));
-                    }
-                </script>
-
-                <?php
-                require("../Connessione/connessione.php");
-                require_once("../Connessione/funzioni.php");
-
-                // Avvia la sessione
-                session_start();
-               
-                if (isset($_SESSION['carrello']) && is_array($_SESSION['carrello'])) {
-                    $totCart = 0;
-                    echo "<table class='table table-dark table-striped' id='tableArticoli'>";
-                    echo "<thead>";
-                    echo "<tr>";
-                    echo "<th>ID</th>";
-                    echo "<th>Nome</th>";
-                    echo "<th>Descrizione</th>";
-                    echo "<th>Prezzo</th>";
-                    echo "<th>Elimina</th>";
-                    echo "</tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-
-                    foreach ($_SESSION['carrello'] as $ID_Prodotto) {
-                        // Ottieni i dettagli del prodotto per l'ID
-                        $prodotto = selezionaProdottoPerID($ID_Prodotto);
-                        if (!empty($prodotto)) {
-                            echo "<tr>";
-                            echo "<td>" . $ID_Prodotto . "</td>";
-                            echo "<td>" . $prodotto['Nome'] . "</td>";
-                            echo "<td>" . $prodotto['Descrizione'] . "</td>";
-                            echo "<td>" . $prodotto['Prezzo'] . "</td>";
-                            echo "<td>";
-                            echo "<form method='POST' action='rimuovi_prodotto.php' style='display:inline;'>";
-                            echo "<input type='hidden' name='ID_Prodotto' value='" . $ID_Prodotto . "'>";
-                            echo "<button type='submit' class='btn btn-danger btn-sm'>X</button>";
-                            echo "</form>";
-                            echo "</td>";
-                            echo "</tr>";
-                            $totCart += $prodotto['Prezzo'];
-                        }
-                    }
-
-                    echo "</tbody>";
-                    echo "</table>";
-                    echo "<p class='' style='font-size:20px; text-align:right; margin-right:10px'>Totale carrello: " . $totCart . " € ㅤㅤㅤ</p>";
-                    echo "<form method='POST' action='prova.php'>";
-                    echo "<input type='hidden' name='carrello' value='" . json_encode($_SESSION['carrello']) . "'>";//Sessione carrello per prova.php
-                    echo "<button type='submit' class='btn btn-success btn-sm' id='invioAcquista' style='width:100%'>Acquista Ora</button>";
-                    echo "</form>";
-                } else {
-                    echo "<p>Nessun prodotto aggiunto.</p>";
-                }
-                ?>
+        <div class="container mt-4">
+        <h2>Ordini non Evasi</h2>
 
 
 
-            </div>
+        <h2>Ordini evasi</h2>
+
+        </div>
+        
 
 
-
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
-
+    </body>
 </html>

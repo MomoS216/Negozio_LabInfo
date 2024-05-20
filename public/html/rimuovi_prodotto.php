@@ -15,13 +15,12 @@ if (isset($_POST['ID_Prodotto'])) {
         // Ottieni l'ID del prodotto rimosso
         $removedProductId = $ID_Prodotto;
         
-        // Genera il codice JavaScript per aggiornare sessionStorage
         echo "<script>";
         echo "if (typeof(Storage) !== 'undefined') {";
         echo "  var cart = sessionStorage.getItem('carrello');";
         echo "  if (cart) {";
         echo "    cart = JSON.parse(cart);";
-        echo "    var index = cart.indexOf('{$removedProductId}');"; // Utilizzo l'interpolazione delle stringhe di PHP
+        echo "    var index = cart.indexOf('{$removedProductId}');"; 
         echo "    if (index !== -1) {";
         echo "      cart.splice(index, 1);";
         echo "      sessionStorage.setItem('carrello', JSON.stringify(cart));";
