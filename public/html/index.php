@@ -121,7 +121,6 @@ session_start();
         </div>
     </div>
 
-
     <?php
     require('../Connessione/connessione.php');
     require('../Connessione/funzioni.php');
@@ -138,6 +137,7 @@ session_start();
         }
     }
     ?>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
