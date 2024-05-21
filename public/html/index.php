@@ -121,22 +121,7 @@ session_start();
         </div>
     </div>
 
-    <?php
-    require('../Connessione/connessione.php');
-    require('../Connessione/funzioni.php');
-    // Verifica se il metodo di richiesta è POST per il form di accesso utente
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Controlla se il form è per l'accesso utente o per la registrazione
-        if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
-            // Form di accesso utente
-            echo '<div class="alert alert-success" role="alert">
-                Hai effettuato l\'accesso con successo!
-            </div>';
-            echo "<p>Username: {$_POST['usernameAccedi']}</p>";
-            echo "<p>Password: {$_POST['passwordAccedi']}</p>";
-        }
-    }
-    ?>
+  
 
 
 
@@ -198,7 +183,10 @@ session_start();
 
     </script>
 
+
 <?php
+    require('../Connessione/connessione.php');
+    require('../Connessione/funzioni.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["usernameAccedi"]) && isset($_POST["passwordAccedi"])) {
         $username = $_POST["usernameAccedi"];

@@ -52,17 +52,23 @@ function loginUtente($username, $password)
 }
 
 //lOGIN
-function checkAdmin()
+function checkAdmin($user,$password)
 {
     global $conn;
     try {
-        $sql = "SELECT Username FROM Utente WHERE Ruolo = 1";
+        $sql = "SELECT Username, Password FROM Utente WHERE Ruolo = 1 AND Username = ?";
         $stmt = $conn->prepare($sql);
+        $stmt->execute([$user]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return true;
+        if ($user && password_verify($password, $user['Password'])) {
+
+            return true;
+          } else {
+              return false;
+          }
     } catch (PDOException $e) {
-    return false;  
+  
         echo "Login failed: " . $e->getMessage();
     }
 }
