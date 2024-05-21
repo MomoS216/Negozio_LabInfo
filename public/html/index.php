@@ -1,6 +1,5 @@
 <?php 
-require('../Connessione/connessione.php');
-require('../Connessione/funzioni.php');
+
 session_start();
 ?>
 <!DOCTYPE html>
